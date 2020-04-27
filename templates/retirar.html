@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'js/bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="row header">
+        <div class="col-6">
+            <h1>Controle financeiro</h1>
+            <h6>by <a href="https://ahdesenvolvimento.herokuapp.com/">AHDesenvolvimento</a></h6>
+        </div>
+        <div class="col-6">
+            <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
+                <button type="button" data-toggle="collapse" data-target="#menuMovel" class="navbar-toggler">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menuMovel">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Voltar</a></li>
+                        <li class="nav-item"><a href="{% url 'adicionar' %}" class="nav-link">Adicionar valor</a></li>
+                        <li class="nav-item"><a href="{% url 'retirar' %}" class="nav-link">Retirar valor</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h3>Inserir valor</h3>
+                    <div class="form-group">
+                        <input type="number" name="quantidade" id="quantidade" class="form-control is-invalid" placeholder="Retirar valor" autocomplete="off">
+                        <div class="invalid-feedback">
+                            Por favor, insira algum valor.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="motivo" id="motivo" class="form-control" placeholder="Motivo" autocomplete="off">
+                    </div>
+                    <!--<input type="text" name="vem_de_onde" id="vem_de_onde" placeholder="Origem do valor" autocomplete="off">-->
+                    <div class="form-group">
+                        <select id="vem_de_onde" class="form-control" name="vem_de_onde">
+                            {% for i in tipos %}
+                                <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" id="salvar">Salvar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/funcoes_js.js"></script>
+    <script src="../static/js/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

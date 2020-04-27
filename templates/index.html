@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'js/bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+    <meta http-equiv="Refresh" content="300">
+    <title>Document</title>
+</head>
+<body>
+    {% if user.is_anonymous %}
+            <a href="{% url 'login' %}">Logar</a>
+        </form>
+    {% else %}
+        <div class="row header">
+            <div class="col-6">
+                <h1>Controle financeiro</h1>
+                <h6>by <a href="https://ahdesenvolvimento.herokuapp.com/">AHDesenvolvimento</a></h6>
+                <p>Dados de {{ user }}</p>
+                <a href="{% url 'logout' %}" type="button">Logout</a>
+            </div>
+            <div class="col-6">
+                <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
+                    <button type="button" data-toggle="collapse" data-target="#menuMovel" class="navbar-toggler">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="menuMovel">
+                        <ul class="navbar-nav">
+                            <li class="nav-item" id="listar"><a href="#" class="nav-link">Listar histórico</a></li>
+                            <li class="nav-item" id="listar2"><a href="#" class="nav-link">Listar saldo detalhado</a></li>
+                            <li class="nav-item"><a href="{% url 'adicionar' %}" class="nav-link">Adicionar valor</a></li>
+                            <li class="nav-item"><a href="{% url 'retirar' %}" class="nav-link">Retirar valor</a></li>
+                            <li class="nav-item"><a href="{% url 'despesa' %}" class="nav-link">Despesas</a></li
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-dark dados table-bordered">
+                        <thead>
+                            <th scope="col">Quantidade(R$)</th>
+                            <th scope="col">Destino</th>
+                            <th scope="col">Data</th>
+                            <!--<th scope="col">Valor antes(R$)</th>-->
+                           <!-- <th scope="col">Valor depois(R$)</th>-->
+
+                        </thead>
+                        {% for v in valores%}
+                        <tbody>
+                            <td scope="row">R$ {{v.0}}</td>
+                            <td>{{ v.1 }}</td>
+                            <td>{{ v.2 }}</td>
+                            <!--<td>{{ v.3 }}</td>-->
+                            <!--<td>{{ v.4 }}</td>-->
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-dark dados2 table-bordered">
+                        <thead>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Quantidade(R$)</th>
+                        </thead>
+                        {% for v in dados%}
+                        <tbody>
+                            <td scope="row">{{v.0}}</td>
+                            <td>{{ v.1 }}</td>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/funcoes_js.js"></script>
+    <script src="static/js/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
